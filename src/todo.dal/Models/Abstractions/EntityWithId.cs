@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace todo.dal.Models.Abstractions
+namespace Todo.Dal.Models.Abstractions
 {
     public abstract class EntityWithId : IEntityWithId 
     {

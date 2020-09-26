@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace todo.dal
+namespace Todo.Dal
 {
     /// <summary>
     /// Create a default db context for design time

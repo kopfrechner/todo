@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using todo.dal.Models.Abstractions;
+using Todo.Dal.Models.Abstractions;
 
-namespace todo.dal.Extensions
+namespace Todo.Dal.Extensions
 {
     public static class ModelBuilderExtensions 
     {

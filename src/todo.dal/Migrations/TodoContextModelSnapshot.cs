@@ -3,9 +3,9 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using todo.dal;
+using Todo.Dal;
 
-namespace todo.dal.Migrations
+namespace Todo.Dal.Migrations
 {
     [DbContext(typeof(TodoContext))]
     partial class TodoContextModelSnapshot : ModelSnapshot

@@ -1,6 +1,6 @@
-﻿using todo.dal.Models.Abstractions;
+﻿using Todo.Dal.Models.Abstractions;
 
-namespace todo.dal.Models
+namespace Todo.Dal.Models
 {
     /// <summary>
     /// A tenant of the system

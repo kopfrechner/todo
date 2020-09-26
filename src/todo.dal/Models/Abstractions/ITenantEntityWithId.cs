@@ -1,4 +1,4 @@
-﻿namespace todo.dal.Models.Abstractions
+﻿namespace Todo.Dal.Models.Abstractions
 {
     public interface ITenantEntityWithId : IEntityWithId, ITenantRelation
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace todo.mvc.Models
+namespace Todo.Mvc.Models
 {
     public class ErrorViewModel
     {

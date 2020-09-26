@@ -1,8 +1,8 @@
 ﻿using System;
-using todo.dal.Models;
-using todo.dal.Models.Abstractions;
+using Todo.Dal.Models;
+using Todo.Dal.Models.Abstractions;
 
-namespace todo.dal
+namespace Todo.Dal
 {
     /// <summary>
     /// Describes what to do

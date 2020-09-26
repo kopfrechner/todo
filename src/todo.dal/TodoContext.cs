@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using todo.dal.Extensions;
-using todo.dal.Models;
+using Todo.Dal.Extensions;
+using Todo.Dal.Models;
 
-namespace todo.dal
+namespace Todo.Dal
 {
     /// <summary>
     /// Our database context for our project

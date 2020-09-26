@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using todo.dal;
+using Todo.Dal;
 
-namespace todo.dal.Migrations
+namespace Todo.Dal.Migrations
 {
     [DbContext(typeof(TodoContext))]
     [Migration("20200926085433_InitialCreate")]
