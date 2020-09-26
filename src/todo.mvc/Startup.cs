@@ -25,7 +25,19 @@ namespace Todo.Mvc
             
             services.AddDbContext<TodoContext>(opts =>
             {
-                opts.UseSqlite(Configuration.GetConnectionString("ConnectionString"));
+                var dbKey = Configuration["DbConnectionString"];
+                var dbConnectionString = Configuration.GetConnectionString(dbKey);
+                var dbDriver = Configuration.GetConnectionString($"{dbKey}DbDriver");
+
+                switch (dbDriver)
+                {
+                    case "Sqlite":
+                        opts.UseSqlite(dbConnectionString);
+                        break;
+                    case "SqlServer":
+                        opts.UseSqlServer(dbConnectionString);
+                        break;
+                }
             });
             
             services.AddControllersWithViews();
