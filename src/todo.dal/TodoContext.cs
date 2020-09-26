@@ -22,8 +22,8 @@ namespace todo.dal
 
             modelBuilder.ConfigureEntityId<Tenant>();
             
-            modelBuilder.ConfigureTenantEntity<TodoItem>();
-            modelBuilder.ConfigureTenantEntity<TotoList>();
+            modelBuilder.ConfigureTenantEntityWithId<TodoItem>();
+            modelBuilder.ConfigureTenantEntityWithId<TotoList>();
         }
     }
 }

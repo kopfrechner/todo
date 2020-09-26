@@ -15,7 +15,7 @@ namespace todo.dal.Extensions
             modelBuilder.Entity<T>().HasOne(x => x.Tenant).WithMany().HasForeignKey(x => x.TenantId).OnDelete(onTenantDeleteBehavior);
         }
         
-        public static void ConfigureTenantEntity<T>(this ModelBuilder modelBuilder, DeleteBehavior onTenantDeleteBehavior = DeleteBehavior.SetNull) where T : class, ITenantEntityWithId
+        public static void ConfigureTenantEntityWithId<T>(this ModelBuilder modelBuilder, DeleteBehavior onTenantDeleteBehavior = DeleteBehavior.SetNull) where T : class, ITenantEntityWithId
         {
             modelBuilder.ConfigureEntityId<T>();
             modelBuilder.ConfigureTenantRelationEntity<T>(onTenantDeleteBehavior);
