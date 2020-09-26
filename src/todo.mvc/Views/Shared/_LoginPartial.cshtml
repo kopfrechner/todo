@@ -1,7 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using Todo.Core
 @using Todo.Dal.Models
 @inject SignInManager<User> SignInManager
-@inject UserManager<User> UserManager
+@inject UserWithTenantManager<User> UserManager
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))

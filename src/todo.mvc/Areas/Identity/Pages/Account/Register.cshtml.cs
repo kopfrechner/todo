@@ -11,8 +11,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using Todo.Core;
 using Todo.Dal.Models;
 
 namespace todo.mvc.Areas.Identity.Pages.Account
@@ -21,20 +23,23 @@ namespace todo.mvc.Areas.Identity.Pages.Account
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<User> _signInManager;
-        private readonly UserManager<User> _userManager;
+        private readonly UserWithTenantManager<User> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ITenantService _tenantService;
 
         public RegisterModel(
-            UserManager<User> userManager,
+            UserWithTenantManager<User> userManager,
             SignInManager<User> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ITenantService tenantService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _tenantService = tenantService;
         }
 
         [BindProperty]
@@ -43,6 +48,8 @@ namespace todo.mvc.Areas.Identity.Pages.Account
         public string ReturnUrl { get; set; }
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
+        
+        public IList<SelectListItem> Tenants { get; set; }
 
         public class InputModel
         {
@@ -57,6 +64,10 @@ namespace todo.mvc.Areas.Identity.Pages.Account
             [Display(Name = "Password")]
             public string Password { get; set; }
 
+            [Required]
+            [Display(Name = "Tenant")]
+            public Guid TenantId { get; set; }
+            
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
@@ -67,6 +78,7 @@ namespace todo.mvc.Areas.Identity.Pages.Account
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            Tenants = (await _tenantService.LoadAllTenantsAsync()).Select(x => new SelectListItem(x.Name, x.Id.ToString())).ToList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -76,7 +88,7 @@ namespace todo.mvc.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = new User { UserName = Input.Email, Email = Input.Email };
-                var result = await _userManager.CreateAsync(user, Input.Password);
+                var result = await _userManager.CreateAsync(user, Input.Password, Input.TenantId);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
