@@ -8,7 +8,7 @@ using Todo.Dal.Models;
 
 namespace Todo.Core
 {
-    public class TodoService
+    public class TodoService : ITodoService
     {
         private readonly TodoContext _db;
 
