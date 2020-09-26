@@ -12,7 +12,7 @@ namespace Todo.Core
     public interface ITodoService
     {
         /// <summary>
-        /// Load a list of TotoLists of <paramref name="tenantId"/>
+        /// Load a list of TodoLists of <paramref name="tenantId"/>
         /// </summary>
         /// <param name="tenantId">Tenant</param>
         /// <returns>A list of todolists</returns>
