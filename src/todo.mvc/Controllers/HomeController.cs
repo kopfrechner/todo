@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Todo.Core;
 using Todo.Mvc.Models;
+using Todo.Mvc.Models.Home;
 
 namespace Todo.Mvc.Controllers
 {
@@ -32,7 +33,11 @@ namespace Todo.Mvc.Controllers
             
             var todoLists= await _todoService.LoadTodoListsAsync(aTenant.Id);
 
-            return View();
+            return View(new IndexViewModel
+            {
+                TenantName = aTenant.Name,
+                TodoListNames = todoLists.Select(x => x.Title).ToList()
+            });
         }
 
         public IActionResult Privacy()
