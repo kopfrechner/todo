@@ -8,9 +8,9 @@ namespace Todo.Core
 {
     public class TenantService : ITenantService
     {
-        private readonly TodoContext _db;
+        private readonly TodoDbContext _db;
 
-        public TenantService(TodoContext db)
+        public TenantService(TodoDbContext db)
         {
             _db = db;
         }

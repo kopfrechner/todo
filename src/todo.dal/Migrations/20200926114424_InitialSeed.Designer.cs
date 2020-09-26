@@ -9,7 +9,7 @@ using Todo.Dal;
 
 namespace todo.dal.Migrations
 {
-    [DbContext(typeof(TodoContext))]
+    [DbContext(typeof(TodoDbContext))]
     [Migration("20200926114424_InitialSeed")]
     partial class InitialSeed
     {

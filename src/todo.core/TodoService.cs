@@ -10,9 +10,9 @@ namespace Todo.Core
 {
     public class TodoService : ITodoService
     {
-        private readonly TodoContext _db;
+        private readonly TodoDbContext _db;
 
-        public TodoService(TodoContext db)
+        public TodoService(TodoDbContext db)
         {
             _db = db;
         }

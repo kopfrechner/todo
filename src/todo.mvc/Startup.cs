@@ -25,10 +25,10 @@ namespace Todo.Mvc
         {
             services.AddTodoServices();
             
-            services.AddDatabase<TodoContext>(Configuration);
+            services.AddDatabase<TodoDbContext>(Configuration);
             
             services.AddIdentity<User, Role>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<TodoContext>()
+                .AddEntityFrameworkStores<TodoDbContext>()
                 .AddDefaultTokenProviders();
             
             services.AddControllersWithViews();

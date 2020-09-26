@@ -10,15 +10,15 @@ namespace Todo.Dal
     /// With this class we can cerate db-migrations, without an actual database
     /// dotnet ef migrations add <MIGRATION-NAME>
     /// </remarks>
-    public class TodoContextFactory : IDesignTimeDbContextFactory<TodoContext>
+    public class TodoContextFactory : IDesignTimeDbContextFactory<TodoDbContext>
     {
-        public TodoContext CreateDbContext(string[] args)
+        public TodoDbContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<TodoContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<TodoDbContext>();
             //optionsBuilder.UseSqlite("Data Source=:memory:"); // simply use an in-memory database
             optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB; Initial Catalog=todo; Integrated Security=True; MultipleActiveResultSets=False;");
             
-            return new TodoContext(optionsBuilder.Options);
+            return new TodoDbContext(optionsBuilder.Options);
         }
     }
 }

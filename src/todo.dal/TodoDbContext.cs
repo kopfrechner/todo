@@ -11,9 +11,9 @@ namespace Todo.Dal
     /// <summary>
     /// Our database context for our project
     /// </summary>
-    public class TodoContext : IdentityDbContext<User, Role, Guid, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>
+    public class TodoDbContext : IdentityDbContext<User, Role, Guid, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>
     {
-        public TodoContext(DbContextOptions options) : base(options) 
+        public TodoDbContext(DbContextOptions options) : base(options) 
         { }
 
         public DbSet<Tenant> Tenants { get; set; }

@@ -12,7 +12,7 @@ namespace Todo.Core
 {
     public class UserWithTenantManager<TUser> : UserManager<TUser> where TUser : IdentityUser<Guid>
     {
-        private readonly TodoContext _db;
+        private readonly TodoDbContext _db;
 
         public UserWithTenantManager(
             IUserStore<TUser> store, 
@@ -24,7 +24,7 @@ namespace Todo.Core
             IdentityErrorDescriber errors, 
             IServiceProvider services, 
             ILogger<UserManager<TUser>> logger,
-            TodoContext db) 
+            TodoDbContext db) 
             : base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services, logger)
         {
             _db = db;

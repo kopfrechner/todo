@@ -9,7 +9,7 @@ using Todo.Dal;
 
 namespace todo.dal.Migrations
 {
-    [DbContext(typeof(TodoContext))]
+    [DbContext(typeof(TodoDbContext))]
     [Migration("20200926134435_IdentityServer")]
     partial class IdentityServer
     {

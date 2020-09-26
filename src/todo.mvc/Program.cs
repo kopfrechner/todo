@@ -11,7 +11,7 @@ namespace Todo.Mvc
         {
             CreateHostBuilder(args)
                 .Build()
-                .ApplyPendingMigrations<TodoContext>()
+                .ApplyPendingMigrations<TodoDbContext>()
                 .Run();
         }
 
