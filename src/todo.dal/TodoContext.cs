@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Todo.Dal.Extensions;
 using Todo.Dal.Models;
+using Todo.Dal.Models.Abstractions;
 
 namespace Todo.Dal
 {
@@ -20,6 +22,17 @@ namespace Todo.Dal
         public DbSet<TodoItem> TodoItems { get; set; }
         public DbSet<TodoList> TodoLists { get; set; }
 
+
+        public IQueryable<T> OfTenant<T>(Tenant tenant) where T: class, ITenantRelation
+        {
+            return Set<T>().Where(x => x.TenantId == tenant.Id);
+        }
+        
+        public IQueryable<T> OfTenant<T>(Guid tenantId) where T: class, ITenantRelation
+        {
+            return Set<T>().Where(x => x.TenantId == tenantId);
+        }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("dbo");
