@@ -9,8 +9,8 @@ using Todo.Dal;
 namespace todo.dal.Migrations
 {
     [DbContext(typeof(TodoContext))]
-    [Migration("20200926112111_InitialCreateAndSeed")]
-    partial class InitialCreateAndSeed
+    [Migration("20200926112729_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
