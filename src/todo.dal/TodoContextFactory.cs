@@ -15,7 +15,8 @@ namespace Todo.Dal
         public TodoContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<TodoContext>();
-            optionsBuilder.UseSqlite("Data Source=:memory:"); // simply use an in-memory database
+            //optionsBuilder.UseSqlite("Data Source=:memory:"); // simply use an in-memory database
+            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB; Initial Catalog=todo; Integrated Security=True; MultipleActiveResultSets=False;");
             
             return new TodoContext(optionsBuilder.Options);
         }
