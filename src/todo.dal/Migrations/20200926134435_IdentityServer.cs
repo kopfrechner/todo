@@ -12,7 +12,7 @@ namespace todo.dal.Migrations
                 schema: "dbo",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true)
@@ -27,7 +27,7 @@ namespace todo.dal.Migrations
                 schema: "dbo",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     UserName = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
@@ -55,7 +55,7 @@ namespace todo.dal.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<string>(nullable: false),
+                    RoleId = table.Column<Guid>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
                 },
@@ -78,7 +78,7 @@ namespace todo.dal.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(nullable: false),
+                    UserId = table.Column<Guid>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
                 },
@@ -102,7 +102,7 @@ namespace todo.dal.Migrations
                     LoginProvider = table.Column<string>(nullable: false),
                     ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: false)
+                    UserId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -121,8 +121,8 @@ namespace todo.dal.Migrations
                 schema: "dbo",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(nullable: false),
-                    RoleId = table.Column<string>(nullable: false)
+                    UserId = table.Column<Guid>(nullable: false),
+                    RoleId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -148,7 +148,7 @@ namespace todo.dal.Migrations
                 schema: "dbo",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(nullable: false),
+                    UserId = table.Column<Guid>(nullable: false),
                     LoginProvider = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     Value = table.Column<string>(nullable: true)
@@ -158,6 +158,34 @@ namespace todo.dal.Migrations
                     table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
                     table.ForeignKey(
                         name: "FK_AspNetUserTokens_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "dbo",
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TenantUser",
+                schema: "dbo",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    TenantId = table.Column<Guid>(nullable: true),
+                    UserId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TenantUser", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TenantUser_Tenants_TenantId",
+                        column: x => x.TenantId,
+                        principalSchema: "dbo",
+                        principalTable: "Tenants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TenantUser_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalSchema: "dbo",
                         principalTable: "AspNetUsers",
@@ -210,6 +238,18 @@ namespace todo.dal.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TenantUser_TenantId",
+                schema: "dbo",
+                table: "TenantUser",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TenantUser_UserId",
+                schema: "dbo",
+                table: "TenantUser",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -232,6 +272,10 @@ namespace todo.dal.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens",
+                schema: "dbo");
+
+            migrationBuilder.DropTable(
+                name: "TenantUser",
                 schema: "dbo");
 
             migrationBuilder.DropTable(
