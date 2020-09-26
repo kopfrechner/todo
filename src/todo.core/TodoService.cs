@@ -17,7 +17,7 @@ namespace todo.core
             _db = db;
         }
         
-        public async Task<IEnumerable<TotoList>> LoadTodoListsAsync(Guid tenantId)
+        public async Task<IEnumerable<TodoList>> LoadTodoListsAsync(Guid tenantId)
         {
             return await _db.TodoLists.Where(x => x.TenantId == tenantId).ToListAsync();
         }

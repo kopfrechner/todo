@@ -17,7 +17,7 @@ namespace Todo.Dal
         public DbSet<Tenant> Tenants { get; set; }
         
         public DbSet<TodoItem> TodoItems { get; set; }
-        public DbSet<TotoList> TodoLists { get; set; }
+        public DbSet<TodoList> TodoLists { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,7 +26,7 @@ namespace Todo.Dal
             modelBuilder.ConfigureEntityId<Tenant>();
             
             modelBuilder.ConfigureTenantEntityWithId<TodoItem>();
-            modelBuilder.ConfigureTenantEntityWithId<TotoList>();
+            modelBuilder.ConfigureTenantEntityWithId<TodoList>();
             
             modelBuilder.SeedDatabase(WithDefaults);
             
@@ -45,7 +45,7 @@ namespace Todo.Dal
             // ============
             
             var todoListId1 = new Guid("81df3f6f-4bb8-4195-932e-a091c5019aad");
-            modelBuilder.Entity<TotoList>().HasData(new TotoList
+            modelBuilder.Entity<TodoList>().HasData(new TodoList
             {
                 Id = todoListId1,
                 Title = "TodoList 1",
@@ -76,7 +76,7 @@ namespace Todo.Dal
             // ============
             
             var todoListId2 = new Guid("94260d4d-133f-403e-8b71-0521b87f2215");
-            modelBuilder.Entity<TotoList>().HasData(new TotoList
+            modelBuilder.Entity<TodoList>().HasData(new TodoList
             {
                 Id = todoListId2,
                 Title = "TodoList 2",

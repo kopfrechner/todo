@@ -25,9 +25,9 @@ namespace Todo.Dal
         public bool Done { get; set; }
         
         /// <summary>
-        /// Navigation property to <see cref="TotoList"/>
+        /// Navigation property to <see cref="TodoList"/>
         /// </summary>
-        public virtual TotoList TotoList { get; set;  }
+        public virtual TodoList TodoList { get; set;  }
         
         /// <summary>
         /// Foreign key to TodoList

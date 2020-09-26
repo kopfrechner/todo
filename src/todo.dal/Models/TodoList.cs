@@ -6,7 +6,7 @@ namespace Todo.Dal.Models
     /// <summary>
     /// Collection of <see cref="TodoItem"/>
     /// </summary>
-    public class TotoList : TenantEntityWithId
+    public class TodoList : TenantEntityWithId
     {
         /// <summary>
         /// Title of the list
