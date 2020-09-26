@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Todo.Core;
 using Todo.Core.Extensions;
 using Todo.Dal;
 using Todo.Dal.Extensions;
@@ -24,12 +25,14 @@ namespace Todo.Mvc
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTodoServices();
+            services.AddHttpContextAccessor();
             
             services.AddDatabase<TodoDbContext>(Configuration);
             
             services.AddIdentity<User, Role>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<TodoDbContext>()
-                .AddDefaultTokenProviders();
+                .AddDefaultTokenProviders()
+                .AddClaimsPrincipalFactory<TenantAwareUserClaimsPrincipalFactory>();
             
             services.AddControllersWithViews();
             services.AddRazorPages();
