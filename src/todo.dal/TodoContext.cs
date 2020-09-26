@@ -18,11 +18,12 @@ namespace todo.dal
         public DbSet<TodoItem> TodoItems { get; set; }
         public DbSet<TotoList> TodoLists { get; set; }
 
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.HasDefaultSchema("dbo");
+            
             modelBuilder.ConfigureEntityId<Tenant>();
             
             modelBuilder.ConfigureTenantEntityWithId<TodoItem>();
