@@ -1,20 +1,22 @@
 ﻿using System;
-using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Todo.Dal.Extensions;
 using Todo.Dal.Models;
-using Todo.Dal.Models.Abstractions;
 
 namespace Todo.Dal
 {
     /// <summary>
     /// Our database context for our project
     /// </summary>
-    public class TodoDbContext : IdentityDbContext<User, Role, Guid, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>
+    public class TodoDbContext : IdentityDbContext<User, Role, Guid, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>, ITodoDbContext
     {
         public TodoDbContext(DbContextOptions options) : base(options) 
         { }
+
+        #region Tables
 
         public DbSet<Tenant> Tenants { get; set; }
         public DbSet<TenantUser> TenantUsers { get; set; }
@@ -22,16 +24,47 @@ namespace Todo.Dal
         public DbSet<TodoItem> TodoItems { get; set; }
         public DbSet<TodoList> TodoLists { get; set; }
 
+        #endregion
 
-        public IQueryable<T> OfTenant<T>(Tenant tenant) where T: class, ITenantRelation
-        {
-            return Set<T>().Where(x => x.TenantId == tenant.Id);
+        #region Transaction
+
+        private IDbContextTransaction _transaction;
+ 
+        public void BeginTransaction()
+        { 
+            _transaction = Database.BeginTransaction();
         }
-        
-        public IQueryable<T> OfTenant<T>(Guid tenantId) where T: class, ITenantRelation
+ 
+        public void Commit()
         {
-            return Set<T>().Where(x => x.TenantId == tenantId);
+            try
+            {
+                SaveChanges();
+                _transaction.Commit();
+            }
+            finally
+            {
+                _transaction.Dispose();
+            }        
         }
+ 
+        public void Rollback()
+        { 
+            _transaction.Rollback();
+            _transaction.Dispose();
+        }
+
+        public new void SaveChanges()
+        {
+            base.SaveChanges();
+        }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            return await base.SaveChangesAsync();
+        }
+
+        #endregion
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

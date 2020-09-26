@@ -10,21 +10,21 @@ namespace Todo.Core
 {
     public class TodoService : ITodoService
     {
-        private readonly TodoDbContext _db;
+        private readonly ITodoDbContext _db;
 
-        public TodoService(TodoDbContext db)
+        public TodoService(ITodoDbContext db)
         {
             _db = db;
         }
         
         public async Task<IEnumerable<TodoList>> LoadTodoListsAsync(Guid tenantId)
         {
-            return await _db.TodoLists.Where(x => x.TenantId == tenantId).ToListAsync();
+            return await _db.TodoLists.ToListAsync();
         }
         
         public async Task<IEnumerable<TodoItem>> LoadTodoItemsAsync(Guid tenantId, Guid todoListId)
         {
-            return await _db.TodoItems.Where(x => x.TenantId == tenantId && x.TodoListId == todoListId).ToListAsync();
+            return await _db.TodoItems.Where(x => x.TodoListId == todoListId).ToListAsync();
         }
     }
 }
