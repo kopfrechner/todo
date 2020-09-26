@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Todo.Core.Extensions;
 using Todo.Dal;
+using Todo.Dal.Extensions;
 
 namespace Todo.Mvc
 {
@@ -23,22 +24,7 @@ namespace Todo.Mvc
         {
             services.AddTodoServices();
             
-            services.AddDbContext<TodoContext>(opts =>
-            {
-                var dbKey = Configuration["DbConnectionString"];
-                var dbConnectionString = Configuration.GetConnectionString(dbKey);
-                var dbDriver = Configuration.GetConnectionString($"{dbKey}DbDriver");
-
-                switch (dbDriver)
-                {
-                    case "Sqlite":
-                        opts.UseSqlite(dbConnectionString);
-                        break;
-                    case "SqlServer":
-                        opts.UseSqlServer(dbConnectionString);
-                        break;
-                }
-            });
+            services.AddDatabase<TodoContext>(Configuration);
             
             services.AddControllersWithViews();
         }
