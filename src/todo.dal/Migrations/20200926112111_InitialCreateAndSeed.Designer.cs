@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Todo.Dal;
 
-namespace Todo.Dal.Migrations
+namespace todo.dal.Migrations
 {
     [DbContext(typeof(TodoContext))]
-    [Migration("20200926085433_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20200926112111_InitialCreateAndSeed")]
+    partial class InitialCreateAndSeed
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,34 +19,34 @@ namespace Todo.Dal.Migrations
                 .HasDefaultSchema("dbo")
                 .HasAnnotation("ProductVersion", "3.1.8");
 
-            modelBuilder.Entity("todo.dal.Models.Tenant", b =>
+            modelBuilder.Entity("Todo.Dal.Models.Tenant", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Tenants");
                 });
 
-            modelBuilder.Entity("todo.dal.Models.TotoList", b =>
+            modelBuilder.Entity("Todo.Dal.Models.TodoList", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("TenantId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -55,57 +55,56 @@ namespace Todo.Dal.Migrations
                     b.ToTable("TodoLists");
                 });
 
-            modelBuilder.Entity("todo.dal.TodoItem", b =>
+            modelBuilder.Entity("Todo.Dal.TodoItem", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DoWhat")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Done")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("TenantId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("TodoListId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("TotoListId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("TenantId");
 
-                    b.HasIndex("TotoListId");
+                    b.HasIndex("TodoListId");
 
                     b.ToTable("TodoItems");
                 });
 
-            modelBuilder.Entity("todo.dal.Models.TotoList", b =>
+            modelBuilder.Entity("Todo.Dal.Models.TodoList", b =>
                 {
-                    b.HasOne("todo.dal.Models.Tenant", "Tenant")
+                    b.HasOne("Todo.Dal.Models.Tenant", "Tenant")
                         .WithMany()
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 
-            modelBuilder.Entity("todo.dal.TodoItem", b =>
+            modelBuilder.Entity("Todo.Dal.TodoItem", b =>
                 {
-                    b.HasOne("todo.dal.Models.Tenant", "Tenant")
+                    b.HasOne("Todo.Dal.Models.Tenant", "Tenant")
                         .WithMany()
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("todo.dal.Models.TotoList", "TotoList")
+                    b.HasOne("Todo.Dal.Models.TodoList", "TodoList")
                         .WithMany("TodoItems")
-                        .HasForeignKey("TotoListId");
+                        .HasForeignKey("TodoListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

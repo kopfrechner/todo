@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Todo.Dal.Migrations
+namespace todo.dal.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialCreateAndSeed : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -55,7 +55,6 @@ namespace Todo.Dal.Migrations
                     DoWhat = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Done = table.Column<bool>(nullable: false),
-                    TotoListId = table.Column<Guid>(nullable: true),
                     TodoListId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
@@ -69,12 +68,12 @@ namespace Todo.Dal.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
-                        name: "FK_TodoItems_TodoLists_TotoListId",
-                        column: x => x.TotoListId,
+                        name: "FK_TodoItems_TodoLists_TodoListId",
+                        column: x => x.TodoListId,
                         principalSchema: "dbo",
                         principalTable: "TodoLists",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -84,10 +83,10 @@ namespace Todo.Dal.Migrations
                 column: "TenantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TodoItems_TotoListId",
+                name: "IX_TodoItems_TodoListId",
                 schema: "dbo",
                 table: "TodoItems",
-                column: "TotoListId");
+                column: "TodoListId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TodoLists_TenantId",
