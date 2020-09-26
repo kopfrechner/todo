@@ -15,6 +15,7 @@ namespace Todo.Dal
         { }
 
         public DbSet<Tenant> Tenants { get; set; }
+        public DbSet<TenantUser> TenantUsers { get; set; }
         
         public DbSet<TodoItem> TodoItems { get; set; }
         public DbSet<TodoList> TodoLists { get; set; }
@@ -24,6 +25,8 @@ namespace Todo.Dal
             modelBuilder.HasDefaultSchema("dbo");
             
             modelBuilder.ConfigureEntityId<Tenant>();
+            modelBuilder.ConfigureTenantEntityWithId<TenantUser>();
+            modelBuilder.Entity<TenantUser>().HasOne(x => x.User).WithMany(x => x.AssignedTenants).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
             
             modelBuilder.ConfigureTenantEntityWithId<TodoItem>();
             modelBuilder.ConfigureTenantEntityWithId<TodoList>();
