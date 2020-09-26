@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Todo.Core.Extensions;
 using Todo.Dal;
 using Todo.Dal.Extensions;
+using Todo.Dal.Models;
 
 namespace Todo.Mvc
 {
@@ -26,9 +26,9 @@ namespace Todo.Mvc
             
             services.AddDatabase<TodoContext>(Configuration);
             
-            
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddIdentity<User, Role>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<TodoContext>();
+            
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
