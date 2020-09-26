@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Todo.Mvc.Models;
-using Todo.mvc.Models.TodoLists;
+using Todo.Mvc.Models.TodoLists;
 
 namespace Todo.Mvc.Controllers
 {

@@ -18,7 +18,7 @@ using Todo.Core;
 using Todo.Core.IdentiyCustomization;
 using Todo.Dal.Models;
 
-namespace Todo.mvc.Areas.Identity.Pages.Account
+namespace Todo.Mvc.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class RegisterModel : PageModel

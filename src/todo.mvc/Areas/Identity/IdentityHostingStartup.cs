@@ -5,8 +5,8 @@ using Todo.Core;
 using Todo.Core.IdentiyCustomization;
 using Todo.Dal.Models;
 
-[assembly: HostingStartup(typeof(Todo.mvc.Areas.Identity.IdentityHostingStartup))]
-namespace Todo.mvc.Areas.Identity
+[assembly: HostingStartup(typeof(Todo.Mvc.Areas.Identity.IdentityHostingStartup))]
+namespace Todo.Mvc.Areas.Identity
 {
     public class IdentityHostingStartup : IHostingStartup
     {

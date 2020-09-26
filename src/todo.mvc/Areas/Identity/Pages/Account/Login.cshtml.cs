@@ -8,20 +8,21 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Todo.Core.IdentiyCustomization;
 using Todo.Dal.Models;
 
-namespace Todo.mvc.Areas.Identity.Pages.Account
+namespace Todo.Mvc.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
-        private readonly UserManager<User> _userManager;
+        private readonly UserWithTenantManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
         public LoginModel(SignInManager<User> signInManager, 
             ILogger<LoginModel> logger,
-            UserManager<User> userManager)
+            UserWithTenantManager<User> userManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;

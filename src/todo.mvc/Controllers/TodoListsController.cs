@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Todo.Core;
-using Todo.mvc.Models.TodoLists;
+using Todo.Mvc.Models.TodoLists;
 
 namespace Todo.Mvc.Controllers
 {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Todo.mvc.Models.TodoLists
+namespace Todo.Mvc.Models.TodoLists
 {
     public class IndexViewModel
     {
