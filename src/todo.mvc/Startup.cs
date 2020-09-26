@@ -28,7 +28,8 @@ namespace Todo.Mvc
             services.AddDatabase<TodoContext>(Configuration);
             
             services.AddIdentity<User, Role>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<TodoContext>();
+                .AddEntityFrameworkStores<TodoContext>()
+                .AddDefaultTokenProviders();
             
             services.AddControllersWithViews();
             services.AddRazorPages();
