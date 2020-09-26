@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Todo.Dal;
 using Todo.Dal.Models;
 
-namespace todo.core
+namespace Todo.Core
 {
     public class TodoService
     {
