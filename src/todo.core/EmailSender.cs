@@ -7,7 +7,9 @@ namespace Todo.Core
     {
         public Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
-            throw new System.NotImplementedException();
+            // TODO: implement email sending.
+            // throw new System.NotImplementedException();
+            return Task.CompletedTask;
         }
     }
 }
