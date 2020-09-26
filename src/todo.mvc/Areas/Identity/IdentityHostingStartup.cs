@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Todo.Core;
+using Todo.Dal.Models;
 
 [assembly: HostingStartup(typeof(todo.mvc.Areas.Identity.IdentityHostingStartup))]
 namespace todo.mvc.Areas.Identity
@@ -13,6 +14,7 @@ namespace todo.mvc.Areas.Identity
             builder.ConfigureServices((context, services) =>
             {
                 services.AddTransient<IEmailSender, EmailSender>();
+                services.AddTransient<UserWithTenantManager<User>>();
             });
         }
     }
