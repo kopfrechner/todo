@@ -4,6 +4,9 @@ using todo.dal.Models;
 
 namespace todo.dal
 {
+    /// <summary>
+    /// Our database context for our project
+    /// </summary>
     public class TodoContext : DbContext
     {
         public TodoContext(DbContextOptions<TodoContext> options)
