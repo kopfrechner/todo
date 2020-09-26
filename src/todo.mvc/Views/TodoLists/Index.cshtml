@@ -1,0 +1,14 @@
+﻿@model todo.mvc.Models.TodoLists.IndexViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Your Todo-Lists</h1>
+    <ul>
+        @foreach (var todoList in Model.TodoListNames)
+        {
+            <li>@todoList</li>
+        }
+    </ul>
+</div>

@@ -1,17 +1,8 @@
-﻿@model Todo.Mvc.Models.Home.IndexViewModel
-@{
+﻿@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to "@Model.TenantName"</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    
-    <p>Here are your todo-lists:</p>
-    <ul>
-    @foreach (var todoList in Model.TodoListNames)
-    {
-        <li>@todoList</li>
-    }
-    </ul>
+    <h1 class="display-4">Welcome to the Todo-List manager</h1>
+    <p>Here are your can manage your personl todo-lists</p>
 </div>
