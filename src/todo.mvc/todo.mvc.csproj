@@ -4,8 +4,12 @@
     <ProjectReference Include="..\todo.core\todo.core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Home" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>aspnet-todo.mvc-259FA77D-CBF7-4D2A-B338-166D50A7DC71</UserSecretsId>
   </PropertyGroup>
-
 </Project>

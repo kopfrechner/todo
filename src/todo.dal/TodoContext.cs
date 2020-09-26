@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Todo.Dal.Extensions;
 using Todo.Dal.Models;
@@ -8,7 +9,7 @@ namespace Todo.Dal
     /// <summary>
     /// Our database context for our project
     /// </summary>
-    public class TodoContext : DbContext
+    public class TodoContext : IdentityDbContext
     {
         public TodoContext(DbContextOptions options) : base(options) 
         { }
