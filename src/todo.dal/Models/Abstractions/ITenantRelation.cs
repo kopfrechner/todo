@@ -10,11 +10,11 @@ namespace Todo.Dal.Models.Abstractions
         /// <summary>
         /// Navigation property to <see cref="Tenant"/>
         /// </summary>
-        public Tenant Tenant { get; set; }
+        Tenant Tenant { get; set; }
         
         /// <summary>
         /// Foreign key to <see cref="Tenant"/>
         /// </summary>
-        public Guid? TenantId { get; set; }
+        Guid? TenantId { get; set; }
     }
 }

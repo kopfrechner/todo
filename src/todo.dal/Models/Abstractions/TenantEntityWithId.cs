@@ -2,10 +2,9 @@
 
 namespace Todo.Dal.Models.Abstractions
 {
-    public abstract class TenantEntityWithId : ITenantEntityWithId
+    public abstract class TenantEntityWithId : EntityWithId, ITenantEntityWithId
     {
-        public Guid Id { get; set; }
-        public Tenant Tenant { get; set; }
+        public virtual Tenant Tenant { get; set; }
         public Guid? TenantId { get; set; }
     }
 }
