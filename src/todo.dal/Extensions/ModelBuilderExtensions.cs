@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Todo.Dal.Models.Abstractions;
 
 namespace Todo.Dal.Extensions
@@ -19,6 +20,11 @@ namespace Todo.Dal.Extensions
         {
             modelBuilder.ConfigureEntityId<T>();
             modelBuilder.ConfigureTenantRelationEntity<T>(onTenantDeleteBehavior);
+        }
+
+        public static void SeedDatabase(this ModelBuilder modelBuilder, Action<ModelBuilder> action)
+        {
+            action(modelBuilder);
         }
     }
 }
