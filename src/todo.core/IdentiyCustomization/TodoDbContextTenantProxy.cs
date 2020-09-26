@@ -8,7 +8,7 @@ using Todo.Core.Extensions;
 using Todo.Dal;
 using Todo.Dal.Models;
 
-namespace Todo.Core
+namespace Todo.Core.IdentiyCustomization
 {
     public class TodoDbContextTenantProxy : ITodoDbContext
     {
@@ -37,7 +37,7 @@ namespace Todo.Core
             _db = db;
         }
 
-        public DbSet<Tenant> Tenants
+        public DbSet<Dal.Models.Tenant> Tenants
         {
             get => _db.Tenants;
             set => _db.Tenants = value;

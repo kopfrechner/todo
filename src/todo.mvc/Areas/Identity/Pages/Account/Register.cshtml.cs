@@ -15,9 +15,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Todo.Core;
+using Todo.Core.IdentiyCustomization;
 using Todo.Dal.Models;
 
-namespace todo.mvc.Areas.Identity.Pages.Account
+namespace Todo.mvc.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class RegisterModel : PageModel

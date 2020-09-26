@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Todo.Dal.Models;
+using Todo.Core.Tenant;
 
 namespace Todo.Core
 {
     public interface ITenantService
     {
-        Task<IEnumerable<Tenant>> LoadAllTenantsAsync();
+        Task<IEnumerable<TenantDto>> LoadAllTenantsAsync();
     }
 }

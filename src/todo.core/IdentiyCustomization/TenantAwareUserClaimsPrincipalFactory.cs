@@ -7,9 +7,12 @@ using Microsoft.Extensions.Options;
 using Todo.Dal;
 using Todo.Dal.Models;
 
-namespace Todo.Core
+namespace Todo.Core.IdentiyCustomization
 {
-    public class TenantAwareUserClaimsPrincipalFactory : UserClaimsPrincipalFactory<User, Role>, IUserClaimsPrincipalFactory<User>
+    /// <summary>
+    /// Add custom claims to http context when authenticing
+    /// </summary>
+    public class TenantAwareUserClaimsPrincipalFactory : UserClaimsPrincipalFactory<User, Role>
     {
         private readonly ITodoDbContext _db;
 
@@ -22,7 +25,10 @@ namespace Todo.Core
             _db = db;
         }
         
-        public async Task<ClaimsPrincipal> CreateAsync(User user)
+        /// <summary>
+        /// Add tenant claim as GroupSid
+        /// </summary>
+        public override async Task<ClaimsPrincipal> CreateAsync(User user)
         {
             var tenantId = _db.TenantUsers.Where(x => x.UserId == user.Id).Select(x => x.TenantId).FirstOrDefault();
             if (tenantId == null)

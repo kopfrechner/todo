@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Todo.Dal;
 
-namespace todo.dal.Migrations
+namespace Todo.dal.Migrations
 {
     [DbContext(typeof(TodoDbContext))]
     partial class TodoContextModelSnapshot : ModelSnapshot

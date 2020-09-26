@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Todo.Core;
 using Todo.Dal;
-using Todo.Dal.Models;
 
-namespace Todo.Core
+namespace Todo.Core.Tenant
 {
     public class TenantService : ITenantService
     {
@@ -15,9 +16,13 @@ namespace Todo.Core
             _db = db;
         }
         
-        public async Task<IEnumerable<Tenant>> LoadAllTenantsAsync()
+        public async Task<IEnumerable<TenantDto>> LoadAllTenantsAsync()
         {
-            return await _db.Tenants.ToListAsync();
+            return await _db.Tenants.Select(x => new TenantDto
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).ToListAsync();
         }
     }
 }

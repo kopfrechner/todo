@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Todo.Dal.Models;
 
-namespace todo.mvc.Areas.Identity.Pages.Account
+namespace Todo.mvc.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LogoutModel : PageModel

@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Todo.Core;
 using Todo.Core.Extensions;
+using Todo.Core.IdentiyCustomization;
 using Todo.Dal;
 using Todo.Dal.Extensions;
 using Todo.Dal.Models;

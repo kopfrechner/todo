@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Todo.Dal;
-using Todo.Dal.Models;
 
 namespace Todo.Core
 {
@@ -16,7 +14,7 @@ namespace Todo.Core
         /// </summary>
         /// <param name="tenantId">Tenant</param>
         /// <returns>A list of todolists</returns>
-        Task<IEnumerable<TodoList>> LoadTodoListsAsync(Guid tenantId);
+        Task<IEnumerable<TodoListDto>> LoadTodoListsAsync(Guid tenantId);
         
         /// <summary>
         /// Load a list of TodoItems of <paramref name="todoListId"/>
@@ -24,6 +22,6 @@ namespace Todo.Core
         /// <param name="tenantId">Tenant</param>
         /// <param name="todoListId">List</param>
         /// <returns>A list of todoItems</returns>
-        Task<IEnumerable<TodoItem>> LoadTodoItemsAsync(Guid tenantId, Guid todoListId);
+        Task<IEnumerable<TodoItemDto>> LoadTodoItemsAsync(Guid tenantId, Guid todoListId);
     }
 }

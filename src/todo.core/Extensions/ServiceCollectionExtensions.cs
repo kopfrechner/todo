@@ -1,6 +1,8 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Todo.Core.IdentiyCustomization;
+using Todo.Core.Tenant;
 using Todo.Dal;
 
 namespace Todo.Core.Extensions

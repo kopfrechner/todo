@@ -8,7 +8,7 @@ using Microsoft.Extensions.Options;
 using Todo.Dal;
 using Todo.Dal.Models;
 
-namespace Todo.Core
+namespace Todo.Core.IdentiyCustomization
 {
     public class UserWithTenantManager<TUser> : UserManager<TUser> where TUser : IdentityUser<Guid>
     {

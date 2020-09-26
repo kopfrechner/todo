@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.UI.Services;
 
-namespace Todo.Core
+namespace Todo.Core.IdentiyCustomization
 {
     public class EmailSender : IEmailSender
     {
