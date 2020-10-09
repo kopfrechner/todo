@@ -19,7 +19,7 @@ namespace Todo.Core
         
         public async Task<IEnumerable<TodoListDto>> LoadTodoListsAsync(Guid tenantId)
         {
-            return await _db.TodoLists.Select(x => new TodoListDto
+            return await _db.Query<TodoList>().Select(x => new TodoListDto
             {
                 Id = x.Id,
                 Description = x.Description,
@@ -29,7 +29,7 @@ namespace Todo.Core
         
         public async Task<IEnumerable<TodoItemDto>> LoadTodoItemsAsync(Guid tenantId, Guid todoListId)
         {
-            return await _db.TodoItems.Where(x => x.TodoListId == todoListId).Select(x => new TodoItemDto
+            return await _db.Query<TodoItem>().Where(x => x.TodoListId == todoListId).Select(x => new TodoItemDto
             {
                 Id = x.Id,
                 Description = x.Description,

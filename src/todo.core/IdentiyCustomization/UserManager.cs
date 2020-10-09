@@ -32,7 +32,7 @@ namespace Todo.Core.IdentiyCustomization
 
         public async Task<IdentityResult> CreateAsync(TUser user, Guid tenantId)
         {
-            var tenant = _db.Tenants.FirstOrDefault(x => x.Id == tenantId);
+            var tenant = _db.Query<Dal.Models.Tenant>().FirstOrDefault(x => x.Id == tenantId);
             if (tenant == null)
             {
                 throw new ArgumentException("Tenant does not exist", nameof(tenantId));
@@ -51,7 +51,7 @@ namespace Todo.Core.IdentiyCustomization
 
         public async Task<IdentityResult> CreateAsync(TUser user, string password, Guid tenantId)
         {
-            var tenant = _db.Tenants.FirstOrDefault(x => x.Id == tenantId);
+            var tenant = _db.Query<Dal.Models.Tenant>().FirstOrDefault(x => x.Id == tenantId);
             if (tenant == null)
             {
                 throw new ArgumentException("Tenant does not exist", nameof(tenantId));
@@ -70,7 +70,7 @@ namespace Todo.Core.IdentiyCustomization
 
         private async Task AssignUserToTenant(TUser user, Guid tenantId)
         {
-            await _db.TenantUsers.AddAsync(new TenantUser
+            await _db.Manipulate<TenantUser>().AddAsync(new TenantUser
             {
                 TenantId = tenantId,
                 UserId = user.Id

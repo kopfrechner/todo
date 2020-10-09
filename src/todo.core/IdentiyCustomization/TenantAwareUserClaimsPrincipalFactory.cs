@@ -30,7 +30,7 @@ namespace Todo.Core.IdentiyCustomization
         /// </summary>
         public override async Task<ClaimsPrincipal> CreateAsync(User user)
         {
-            var tenantId = _db.TenantUsers.Where(x => x.UserId == user.Id).Select(x => x.TenantId).FirstOrDefault();
+            var tenantId = _db.Query<TenantUser>().Where(x => x.UserId == user.Id).Select(x => x.TenantId).FirstOrDefault();
             if (tenantId == null)
             {
                 throw new InvalidOperationException("Cannot find tenant and thus cannot add tenant claim.");

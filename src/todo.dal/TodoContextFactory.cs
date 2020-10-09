@@ -18,7 +18,7 @@ namespace Todo.Dal
             //optionsBuilder.UseSqlite("Data Source=:memory:"); // simply use an in-memory database
             optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB; Initial Catalog=todo; Integrated Security=True; MultipleActiveResultSets=False;");
             
-            return new TodoDbContext(optionsBuilder.Options);
+            return new TodoDbContext(optionsBuilder.Options, null);
         }
     }
 }

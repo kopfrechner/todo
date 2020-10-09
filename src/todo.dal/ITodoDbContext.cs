@@ -1,17 +1,15 @@
-﻿using System.Threading.Tasks;
+﻿
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Todo.Dal.Models;
 
 namespace Todo.Dal
 {
     public interface ITodoDbContext
     {
-        DbSet<Tenant> Tenants { get; set; }
-        DbSet<TenantUser> TenantUsers { get; set; }
-        
-        DbSet<TodoItem> TodoItems { get; set; }
-        DbSet<TodoList> TodoLists { get; set; }
-        
+        IQueryable<T> Query<T>() where T : class;
+        DbSet<T> Manipulate<T>() where T : class;
+
         void BeginTransaction();
         void Commit();
         void Rollback();

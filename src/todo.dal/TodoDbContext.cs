@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Todo.Dal.Extensions;
 using Todo.Dal.Models;
+using Todo.Dal.Models.Abstractions;
 
 namespace Todo.Dal
 {
@@ -13,23 +17,56 @@ namespace Todo.Dal
     /// </summary>
     public class TodoDbContext : IdentityDbContext<User, Role, Guid, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>, ITodoDbContext
     {
-        public TodoDbContext(DbContextOptions options) : base(options) 
-        { }
+        private IDbContextTransaction _transaction;
+        private bool _userIsAuthenticated;
+        private Guid _tenantId;
+        
+        public TodoDbContext(
+            DbContextOptions options,
+            IHttpContextAccessor httpContextAccessor) : base(options)
+        {
+            var httpContext = httpContextAccessor?.HttpContext;
+            
+            _userIsAuthenticated = httpContext?.User?.Identity?.IsAuthenticated ?? false;
+            if (_userIsAuthenticated)
+            {
+                var tenantClaim = httpContext?.User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.GroupSid);
+                if (tenantClaim == null)
+                {
+                    throw new InvalidOperationException("Did not find tenant claim although authenticated");
+                }
+                _tenantId = Guid.Parse(tenantClaim.Value);
+            }
+        }
 
         #region Tables
 
-        public DbSet<Tenant> Tenants { get; set; }
-        public DbSet<TenantUser> TenantUsers { get; set; }
-        
-        public DbSet<TodoItem> TodoItems { get; set; }
-        public DbSet<TodoList> TodoLists { get; set; }
+        public new IQueryable<T> Query<T>() where T : class
+        {
+            if (_userIsAuthenticated && IsITenantRelation<T>())
+            {
+                return Set<T>().OfTenant(_tenantId);
+            }
 
+            return Set<T>();
+        }
+    
+        public DbSet<T> Manipulate<T>() where T: class
+        {
+            return Set<T>();
+        }
+        
+        private static bool IsITenantRelation<T>()
+        {
+            return typeof(T).GetInterfaces().Any(x =>
+                x.IsGenericType &&
+                x.GetGenericTypeDefinition() == typeof(ITenantRelation));
+        }
+        
         #endregion
 
         #region Transaction
-
-        private IDbContextTransaction _transaction;
- 
+        
         public void BeginTransaction()
         { 
             _transaction = Database.BeginTransaction();
@@ -76,6 +113,8 @@ namespace Todo.Dal
             
             modelBuilder.ConfigureTenantEntityWithId<TodoItem>();
             modelBuilder.ConfigureTenantEntityWithId<TodoList>();
+         
+            modelBuilder.PluralizeTableNameConvention();
             
             modelBuilder.SeedDatabase(WithDefaults);
             
@@ -152,6 +191,17 @@ namespace Todo.Dal
                 TodoListId = todoListId2,
                 TenantId = defaultTenantId,
             });
+        }
+    }
+    
+    public static class ModelBuilderExtensions 
+    {
+        public static void PluralizeTableNameConvention(this ModelBuilder modelBuilder)
+        {
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                entityType.SetTableName($"{entityType.DisplayName()}s");
+            }
         }
     }
 }

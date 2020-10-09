@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Todo.Core;
 using Todo.Dal;
 
 namespace Todo.Core.Tenant
@@ -18,7 +17,7 @@ namespace Todo.Core.Tenant
         
         public async Task<IEnumerable<TenantDto>> LoadAllTenantsAsync()
         {
-            return await _db.Tenants.Select(x => new TenantDto
+            return await _db.Query<Dal.Models.Tenant>().Select(x => new TenantDto
             {
                 Id = x.Id,
                 Name = x.Name
